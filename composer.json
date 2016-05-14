@@ -1,13 +1,16 @@
 {
-  "name": "black-lamp/blcms-redirect",
-  "description": "Yii 2 redirect module",
-  "keywords": ["black-lamp", "cms", "redirects"],
-  "version": "0.0.2",
+  "name": "black-lamp/blcms-translate",
+  "description": "Translations module for Black-Lamp CMS",
+  "keywords": ["black-lamp", "cms", "translation"],
   "type": "yii2-extension",
   "authors": [
     {
-      "name": "Gutsulyak Vadim",
-      "email": "guts.vadim@gmail.com"
+      "name": "Cherednyk Maxim",
+      "email": "maks757q@gmail.com"
+    },
+    {
+      "name": "Albert Gainutdinov",
+      "email": "xalbert.einsteinx@gmail.com"
     }
   ],
   "require": {
