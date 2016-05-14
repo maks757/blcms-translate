@@ -1,0 +1,21 @@
+{
+  "name": "black-lamp/blcms-redirect",
+  "description": "Yii 2 redirect module",
+  "keywords": ["black-lamp", "cms", "redirects"],
+  "version": "0.0.2",
+  "type": "yii2-extension",
+  "authors": [
+    {
+      "name": "Gutsulyak Vadim",
+      "email": "guts.vadim@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": ">=2.0.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "bl\\cms\\translate\\": ""
+    }
+  }
+}
