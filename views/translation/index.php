@@ -25,8 +25,8 @@ $dataGet = Yii::$app->request->get();
             <select id="filtertranslationform-categoryid" class="form-control" name="category">
                 <option value="">--все--</option>
                 <? foreach ($allCategories as $category):?>
-                    <option <?= $selectedCategory == $category[category] ? 'selected' : '' ?> value="<?= $category[category] ?>">
-                        <?= $category[category] ?>
+                    <option <?= $selectedCategory == $category['category'] ? 'selected' : '' ?> value="<?= $category['category'] ?>">
+                        <?= $category['category'] ?>
                     </option>
                 <? endforeach;?>
             </select>
@@ -58,51 +58,51 @@ $dataGet = Yii::$app->request->get();
             <div class="ibox-content">
                 <div class="table-responsive">
                     <? if(!empty($sourceMessages)): ?>
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Категория</th>
-                            <th>Исходник</th>
-                            <? if(!empty($sourceMessages[0]->messages)): ?>
-                                <th>Перевод</th>
-                                <th>Язык</th>
-                            <? endif; ?>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <? foreach($sourceMessages as $sourceMessage): ?>
-                        <tr>
-                            <td><?= $sourceMessage->category ?></td>
-                            <td><?= $sourceMessage->message ?></td>
-                            <? if(!empty($sourceMessage->messages)): ?>
-                                <td><?=$sourceMessage->messages[0]->translation?></td>
-                                <td><?=$sourceMessage->messages[0]->language?></td>
-                            <? else: ?>
-                                <td></td>
-                                <td></td>
-                            <? endif; ?>
-                            <td class="text-right">
-                                <a href="<?= Url::toRoute([
-                                    empty($sourceMessage->messages) ? 'source-message/edit' : 'message/edit',
-                                    'id' => $sourceMessage->id,
-                                    'category' => $sourceMessage->category,
-                                    'lang' => $selectedLanguage
-                                ]) ?>" class="btn btn-warning btn-circle" type="button">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <a href="<?= Url::toRoute([
-                                    empty($sourceMessage->messages) ? 'source-message/delete' : 'message/delete',
-                                    'id' => $sourceMessage->id,
-                                    'lang' => $selectedLanguage
-                                ]) ?>" class="btn btn-danger btn-circle" type="button">
-                                    <i class="fa fa-close"></i>
-                                </a>
-                            </td>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Категория</th>
+                                <th>Исходник</th>
+                                <? if(!empty($sourceMessages[0]->messages)): ?>
+                                    <th>Перевод</th>
+                                    <th>Язык</th>
+                                <? endif; ?>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <? foreach($sourceMessages as $sourceMessage): ?>
+                                <tr>
+                                    <td><?= $sourceMessage->category ?></td>
+                                    <td><?= $sourceMessage->message ?></td>
+                                    <? if(!empty($sourceMessage->messages)): ?>
+                                        <td><?=$sourceMessage->messages[0]->translation?></td>
+                                        <td><?=$sourceMessage->messages[0]->language?></td>
+                                    <? else: ?>
+                                        <td></td>
+                                        <td></td>
+                                    <? endif; ?>
+                                    <td class="text-right">
+                                        <a href="<?= Url::toRoute([
+                                            empty($sourceMessage->messages) ? 'source-message/edit' : 'message/edit',
+                                            'id' => $sourceMessage->id,
+                                            'category' => $sourceMessage->category,
+                                            'lang' => $selectedLanguage
+                                        ]) ?>" class="btn btn-warning btn-circle" type="button">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="<?= Url::toRoute([
+                                            empty($sourceMessage->messages) ? 'source-message/delete' : 'message/delete',
+                                            'id' => $sourceMessage->id,
+                                            'lang' => $selectedLanguage
+                                        ]) ?>" class="btn btn-danger btn-circle" type="button">
+                                            <i class="fa fa-close"></i>
+                                        </a>
+                                    </td>
 
-                        </tr>
-                        <? endforeach; ?>
-                        </tbody>
-                    </table>
+                                </tr>
+                            <? endforeach; ?>
+                            </tbody>
+                        </table>
                     <? endif; ?>
                 </div>
             </div>
@@ -119,7 +119,7 @@ $dataGet = Yii::$app->request->get();
     </div>
 </div>
 
-    <!-- Add Translation Modal Dialog -->
+<!-- Add Translation Modal Dialog -->
 <div class="modal fade" id="addTranslationFormModel" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
