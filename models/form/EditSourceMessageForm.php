@@ -56,7 +56,7 @@ class EditSourceMessageForm extends Model
                 $dataMessage->id = $sourceMessageQuarry['id'];
                 $dataMessage->language = $this->language;
                 $dataMessage->translation = $this->translation;
-                if(strcasecmp($this->base_language, Language::findOne(1)[lang_id]) == 0) {
+                if(strcasecmp($this->base_language, Language::findOne(1)['lang_id']) == 0) {
                     $sourceMessageQuarry->update();
                 } else {
                     $sourceMessageQuarry->update();
