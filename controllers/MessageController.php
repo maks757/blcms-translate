@@ -17,9 +17,9 @@ class MessageController extends Controller
         $model = new EditMessageForm();
         if($data = Yii::$app->request->get())
         {
-            $model->id = $data[id];
-            $model->language = $data[lang];
-            $model->translation = Message::find()->where(['id' => $data[id], 'language' => $data[lang]])->one()[translation];
+            $model->id = $data['id'];
+            $model->language = $data['lang'];
+            $model->translation = Message::find()->where(['id' => $data['id'], 'language' => $data['lang']])->one()[translation];
             Url::remember(Yii::$app->request->referrer);
             return $this->render('edit', array('model' => $model, 'lang' => Language::find()->where(array('lang_id' => $model->language))->one()->name));
         }

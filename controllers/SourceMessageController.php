@@ -27,12 +27,12 @@ class SourceMessageController extends Controller
         $model = new EditSourceMessageForm();
         if($data = Yii::$app->request->get())
         {
-            $model->id = $data[id];
-            $query = SourceMessage::find()->where(['id' => $data[id]]);
-            if(!empty($data[category])) {
-                $query->andWhere(['category' => $data[category]]);
+            $model->id = $data['id'];
+            $query = SourceMessage::find()->where(['id' => $data['id']]);
+            if(!empty($data['category'])) {
+                $query->andWhere(['category' => $data['category']]);
             }
-            if(!empty($data[lang])) {
+            if(!empty($data['lang'])) {
                 $query->with(['messages' => function($query) {
                     $query->andWhere(['language' => Yii::$app->request->get('lang')]);
                 }]);
@@ -40,20 +40,20 @@ class SourceMessageController extends Controller
 
             $query = $query->asArray()->one();
 
-            $model->category = $query[category];
-            $model->message = $query[message];
-            $model->language = $data[lang];
-            $model->translation = $query[translation];
-            $model->base_category = $data[category];
-            $model->base_language = $data[lang];
+            $model->category = $query['category'];
+            $model->message = $query['message'];
+            $model->language = $data['lang'];
+            $model->translation = $query['translation'];
+            $model->base_category = $data['category'];
+            $model->base_language = $data['lang'];
             Url::remember(Yii::$app->request->referrer);
 
             return $this->render('edit',[
                 'model' => $model,
                 'allLanguages' => Language::find()->all(),
                 'allCategories' => SourceMessage::find()->select(['category'])->groupBy('category')->asArray()->all(),
-                'selectedCategory' => $data[category],
-                'selectedLanguage' => $data[lang],
+                'selectedCategory' => $data['category'],
+                'selectedLanguage' => $data['lang'],
             ]);
         }
 
