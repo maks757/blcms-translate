@@ -36,12 +36,13 @@ class MessageController extends Controller
         $messages_count = clone $message;
         $pages = new Pagination(['totalCount' => $messages_count->count(), 'defaultPageSize' => 50]);
         $messages = $message->offset($pages->offset)
+            ->orderBy(['id' => SORT_DESC])
             ->limit($pages->limit)
             ->all();
 
         return $this->render('index', [
             'allLanguages' => Language::find()->all(),
-            'allCategories' => SourceMessage::find()->select(['id', 'category'])->groupBy('category')->asArray()->all(),
+            'allCategories' => SourceMessage::find()->select(['id', 'category'])->groupBy(['category'])->all(),
             'sourceMessages' => $messages,
             'pages' => $pages,
             'addModel' => new SourceMessage(),
