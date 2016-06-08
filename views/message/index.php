@@ -85,15 +85,13 @@ $dataGet = Yii::$app->request->get();
                                             'message/edit',
                                             'categoryId' => $sourceMessage->id,
                                             'languageId' => $selectedLanguage
-                                        ]) ?>" class="btn btn-warning btn-circle glyphicon glyphicon-edit" type="button">
-                                            <i class="fa fa-edit"></i>
+                                        ]) ?>" class="btn btn-warning glyphicon glyphicon-edit" type="button">
                                         </a>
                                         <a href="<?= Url::toRoute([
                                             'message/delete',
                                             'categoryId' => $sourceMessage->id,
                                             'languageId' => $selectedLanguage
-                                        ]) ?>" class="btn btn-danger btn-circle glyphicon glyphicon-remove" type="button">
-                                            <i class="fa fa-close"></i>
+                                        ]) ?>" class="btn btn-danger glyphicon glyphicon-remove" type="button">
                                         </a>
                                     </td>
 
