@@ -18,7 +18,18 @@ use yii\db\ActiveRecord;
  */
 class SourceMessage extends ActiveRecord
 {
-    public static function tableName() { return 'source_message'; }
+    public function rules()
+    {
+        return [
+            [['id'], 'integer'],
+            [['category', 'message'], 'string'],
+            [['category', 'message'], 'required']
+        ];
+    }
+
+    public static function tableName() {
+        return 'source_message';
+    }
 
     public function getMessages() {
         return $this->hasMany(Message::className(), ['id' => 'id']);

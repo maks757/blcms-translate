@@ -1,6 +1,7 @@
 <?php
 
 use bl\cms\translate\models\form\EditMessageForm;
+use bl\cms\translate\Translation;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -17,14 +18,14 @@ $this->title = 'Изменение';
         <? ActiveForm::begin([ 'action' => Url::to(['edit']), 'method' => 'post'])?>
         <div class="form-group col-md-5">
             <?= Html::activeHiddenInput($model, 'id')?>
-            <?= Html::activeHiddenInput($model, 'language')?>
-            <?= Html::label("Language " . $lang, ['class' => 'form-control'])?>
+            <?= Html::label(Translation::t('message', 'Language') . ' '. $language->name, ['class' => 'form-control'])?>
         </div>
         <div class="form-group col-md-5">
-            <?= Html::activeTextInput($model, 'translation', ['class' => 'form-control']) ?>
+            <?= Html::label(Translation::t('message', 'Text') . ' '. $language->name, ['class' => 'form-control'])?>
+            <?= Html::activeTextInput($model, 'message', ['class' => 'form-control']) ?>
         </div>
         <div class="col-md-2">
-            <input type="submit" class="btn btn-primary pull-left" value="Изменить">
+            <input type="submit" class="btn btn-primary pull-left" value="<?= Translation::t('message', 'Update') ?>">
         </div>
         <? ActiveForm::end(); ?>
     </div>

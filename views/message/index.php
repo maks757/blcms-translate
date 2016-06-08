@@ -8,6 +8,7 @@
 /* @var $pages yii\data\Pagination[] */
 /* @var $addTranslationFormModel AddTranslationForm */
 
+use bl\cms\translate\Translation;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
@@ -22,19 +23,19 @@ $dataGet = Yii::$app->request->get();
     <div class="col-md-12">
         <? ActiveForm::begin([ 'action' => Url::to(['index']), 'method' => 'get'])?>
         <div class="form-group col-md-5">
-            <select id="filtertranslationform-categoryid" class="form-control" name="category">
-                <option value="">--все--</option>
+            <select id="filtertranslationform-categoryid" class="form-control" name="categoryId">
+                <option value="">--<?= Translation::t('main', 'all') ?>--</option>
                 <? foreach ($allCategories as $category):?>
-                    <option <?= $selectedCategory == $category['category'] ? 'selected' : '' ?> value="<?= $category['category'] ?>">
+                    <option <?= $selectedCategory == $category['id'] ? 'selected' : '' ?> value="<?= $category['id'] ?>">
                         <?= $category['category'] ?>
                     </option>
                 <? endforeach;?>
             </select>
         </div>
         <div class="form-group col-md-5">
-            <select id="filtertranslationform-languageid" class="form-control" name="langId">
+            <select id="filtertranslationform-languageid" class="form-control" name="languageId">
                 <? foreach ($allLanguages as $language):?>
-                    <option <?= $selectedLanguage == $language->lang_id ? 'selected' : '' ?> value="<?= $language->lang_id ?>">
+                    <option <?= $selectedLanguage == $language->id ? 'selected' : '' ?> value="<?= $language->id ?>">
                         <?= $language->name ?>
                     </option>
                 <? endforeach;?>
@@ -52,7 +53,7 @@ $dataGet = Yii::$app->request->get();
             <div class="ibox-title">
                 <h5>
                     <i class="fa fa-file-text"></i>
-                    Список переводов
+                    <?= Translation::t('main', 'List translation') ?>
                 </h5>
             </div>
             <div class="ibox-content">
@@ -61,11 +62,11 @@ $dataGet = Yii::$app->request->get();
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>Категория</th>
-                                <th>Исходник</th>
+                                <th><?= Translation::t('main', 'Category') ?></th>
+                                <th><?= Translation::t('main', 'source') ?></th>
                                 <? if(!empty($sourceMessages[0]->messages)): ?>
-                                    <th>Перевод</th>
-                                    <th>Язык</th>
+                                    <th><?= Translation::t('main', 'Translation') ?></th>
+                                    <th><?= Translation::t('main', 'Language') ?></th>
                                 <? endif; ?>
                             </tr>
                             </thead>
@@ -76,25 +77,22 @@ $dataGet = Yii::$app->request->get();
                                     <td><?= $sourceMessage->message ?></td>
                                     <? if(!empty($sourceMessage->messages)): ?>
                                         <td><?=$sourceMessage->messages[0]->translation?></td>
-                                        <td><?=$sourceMessage->messages[0]->language?></td>
                                     <? else: ?>
-                                        <td></td>
                                         <td></td>
                                     <? endif; ?>
                                     <td class="text-right">
                                         <a href="<?= Url::toRoute([
-                                            empty($sourceMessage->messages) ? 'source-message/edit' : 'message/edit',
-                                            'id' => $sourceMessage->id,
-                                            'category' => $sourceMessage->category,
-                                            'lang' => $selectedLanguage
-                                        ]) ?>" class="btn btn-warning btn-circle" type="button">
+                                            'message/edit',
+                                            'categoryId' => $sourceMessage->id,
+                                            'languageId' => $selectedLanguage
+                                        ]) ?>" class="btn btn-warning btn-circle glyphicon glyphicon-edit" type="button">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <a href="<?= Url::toRoute([
-                                            empty($sourceMessage->messages) ? 'source-message/delete' : 'message/delete',
-                                            'id' => $sourceMessage->id,
-                                            'lang' => $selectedLanguage
-                                        ]) ?>" class="btn btn-danger btn-circle" type="button">
+                                            'message/delete',
+                                            'categoryId' => $sourceMessage->id,
+                                            'languageId' => $selectedLanguage
+                                        ]) ?>" class="btn btn-danger btn-circle glyphicon glyphicon-remove" type="button">
                                             <i class="fa fa-close"></i>
                                         </a>
                                     </td>
@@ -108,7 +106,7 @@ $dataGet = Yii::$app->request->get();
             </div>
             <div class="ibox-footer">
                 <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#addTranslationFormModel">
-                    <i class="fa fa-user-plus"></i> Добавить
+                    <i class="fa fa-user-plus"></i> <?= Translation::t('main', 'Add') ?>
                 </a>
                 <div class="text-center">
                     <?= LinkPager::widget(['pagination' => $pages]) ?>
@@ -123,7 +121,7 @@ $dataGet = Yii::$app->request->get();
 <div class="modal fade" id="addTranslationFormModel" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <? $addTranslationForm = ActiveForm::begin(['action' => Url::toRoute(['source-message/add']), 'method'=>'post']) ?>
+            <? $addForm = ActiveForm::begin(['action' => Url::toRoute(['message/add']), 'method'=>'post']) ?>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -132,7 +130,7 @@ $dataGet = Yii::$app->request->get();
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <?= $addTranslationForm->field($addTranslationFormModel, 'CategoryText', [
+                    <?= $addForm->field($addModel, 'category', [
                         'inputOptions' => [
                             'placeholder' => 'Текст',
                             'class' => 'form-control'
@@ -141,7 +139,7 @@ $dataGet = Yii::$app->request->get();
                     ?>
                 </div>
                 <div class="form-group">
-                    <?= $addTranslationForm->field($addTranslationFormModel, 'TranslationText', [
+                    <?= $addForm->field($addModel, 'message', [
                         'inputOptions' => [
                             'placeholder' => "Текст",
                             'class' => 'form-control'

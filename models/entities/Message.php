@@ -18,6 +18,15 @@ use yii\db\ActiveRecord;
  */
 class Message extends ActiveRecord
 {
+    public function rules()
+    {
+        return [
+            [['id'], 'integer'],
+            [['language', 'translation'], 'string'],
+            [['language', 'translation'], 'required']
+        ];
+    }
+
     public static function tableName() { return 'message'; }
 
     public function getSource() {

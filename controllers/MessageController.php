@@ -1,40 +1,115 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Max
+ * Date: 15.02.2016
+ * Time: 19:00
+ */
+
 namespace bl\cms\translate\controllers;
 
 use bl\cms\translate\models\entities\Message;
-use bl\cms\translate\models\form\EditMessageForm;
+use bl\cms\translate\models\entities\SourceMessage;
 use bl\multilang\entities\Language;
 use Yii;
+use yii\data\Pagination;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\Controller;
 
-/**
- * @author Gutsulyak Vadim <guts.vadim@gmail.com>
- */
 class MessageController extends Controller
 {
-    public function actionEdit(){
-        $model = new EditMessageForm();
-        if($data = Yii::$app->request->get())
-        {
-            $model->id = $data['id'];
-            $model->language = $data['lang'];
-            $model->translation = Message::find()->where(['id' => $data['id'], 'language' => $data['lang']])->one()[translation];
-            Url::remember(Yii::$app->request->referrer);
-            return $this->render('edit', array('model' => $model, 'lang' => Language::find()->where(array('lang_id' => $model->language))->one()->name));
+    public function actionIndex()
+    {
+        $language = Language::findOrDefault(Yii::$app->request->get('languageId'));
+        $category = SourceMessage::findOne(Yii::$app->request->get('categoryId'));
+        $message = SourceMessage::find();
+        if(!empty($language)) {
+            $message->with(['messages' => function($query) use($language) {
+                $query->andWhere(['language' => $language->lang_id]);
+            }]);
         }
-        if($data = Yii::$app->request->post()) {
-            if ($model->load(Yii::$app->request->post()) && $model->edit()) {
-                return $this->redirect(Url::previous());
+        if(!empty($category)) {
+            $message->where(['category' => $category->category]);
+        }
+
+        $messages_count = clone $message;
+        $pages = new Pagination(['totalCount' => $messages_count->count(), 'defaultPageSize' => 50]);
+        $messages = $message->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+
+        return $this->render('index', [
+            'allLanguages' => Language::find()->all(),
+            'allCategories' => SourceMessage::find()->select(['id', 'category'])->groupBy('category')->asArray()->all(),
+            'sourceMessages' => $messages,
+            'pages' => $pages,
+            'addModel' => new SourceMessage(),
+            'selectedCategory' => $category->id,
+            'selectedLanguage' => $language->id
+        ]);
+    }
+
+    public function actionAdd(){
+        $addModel = new SourceMessage();
+        if($addModel->load(Yii::$app->request->post()) && $addModel->validate()){
+            $addModel->save();
+            Yii::$app->session->setFlash('success', 'Data success created.');
+        }
+        else
+            Yii::$app->session->setFlash('error', Html::errorSummary($addModel));
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionEdit($categoryId = null, $languageId = null)
+    {
+        if(Yii::$app->request->isPost){
+            $source_message = SourceMessage::find()->where(['id' => Yii::$app->request->post("SourceMessage")['id']])->one();
+            $message_language = Yii::$app->request->post("Message");
+            $source_message->load(Yii::$app->request->post());
+            $source_message->save();
+            if(!empty($message_language['language'])){
+                $message = Message::find()->where(['id' => $source_message->id, 'language' => $message_language['language']])->one();
+                if(empty($message))
+                    $message = new Message();
+                $message->load(Yii::$app->request->post());
+                $message->id = $source_message->id;
+                $message->save();
+            }
+            return $this->redirect(Url::toRoute(['/translation/message', 'categoryId' => $source_message->id, 'languageId' => Language::find()->where(['lang_id' => $message->language])->one()->id]));
+        } else {
+            $language = Language::findOne($languageId);
+            $category = SourceMessage::find()->where(['id' => $categoryId])->one();
+            if ($language->lang_id != Yii::$app->sourceLanguage) {
+                $message = Message::find()->where(['id' => $category->id, 'language' => $language->lang_id])->one();
+                if (empty($message))
+                    $message = new Message();
+                return $this->render('source-message/edit',
+                    [
+                        'source_message' => $category,
+                        'message' => $message,
+                        'categories' => SourceMessage::find()->all(),
+                        'languages' => Language::find()->all(),
+                        'language' => $language
+                    ]);
+            } else {
+                return $this->render('message/edit', ['model' => $category, 'language' => $language]);
             }
         }
     }
 
-    public function actionDelete($id, $lang)
-    {
-        if(!empty($id) && !empty($lang)){
-            Message::find()->where(['id' => $id, 'language' => $lang])->one()->delete();
-            return $this->redirect(Yii::$app->request->referrer);
+    public function actionDelete($categoryId = null, $languageId = null){
+        $language = Language::find()->where(['id' => $languageId])->one();
+        if(Message::find()->where(['id' => $categoryId])->count() == 0)
+            SourceMessage::find()->where(['id' => $categoryId])->one()->delete();
+        else {
+            $message = Message::find()->where(['id' => $categoryId, 'language' => $language->lang_id])->one();
+            if(!empty($message))
+                $message->delete();
+            else
+                Yii::$app->session->setFlash('success', 'This category linked data , such a category can not be deleted.');
         }
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }
