@@ -15,7 +15,7 @@ $this->title = 'Изменение';
 
     <!--Edit data-->
     <div class="col-md-12">
-        <? ActiveForm::begin([ 'action' => Url::to(['edit']), 'method' => 'post'])?>
+        <?php ActiveForm::begin([ 'action' => Url::to(['edit']), 'method' => 'post'])?>
         <div class="form-group col-md-5">
             <?= Html::activeHiddenInput($model, 'id')?>
             <?= Html::label(Translation::t('message', 'Language') . ' '. $language->name, ['class' => 'form-control'])?>
@@ -27,7 +27,7 @@ $this->title = 'Изменение';
         <div class="col-md-2">
             <input type="submit" class="btn btn-primary pull-left" value="<?= Translation::t('message', 'Update') ?>">
         </div>
-        <? ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
     </div>
 
 </div>

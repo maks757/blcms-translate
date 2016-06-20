@@ -21,30 +21,30 @@ $dataGet = Yii::$app->request->get();
 
     <!--Filter Translation-->
     <div class="col-md-12">
-        <? ActiveForm::begin([ 'action' => Url::to(['index']), 'method' => 'get'])?>
+        <?php ActiveForm::begin([ 'action' => Url::to(['index']), 'method' => 'get'])?>
         <div class="form-group col-md-5">
             <select id="filtertranslationform-categoryid" class="form-control" name="categoryId">
                 <option value="">--<?= Translation::t('main', 'all') ?>--</option>
-                <? foreach ($allCategories as $category):?>
+                <?php foreach ($allCategories as $category):?>
                     <option <?= $selectedCategory == $category['id'] ? 'selected' : '' ?> value="<?= $category['id'] ?>">
                         <?= $category['category'] ?>
                     </option>
-                <? endforeach;?>
+                <?php endforeach;?>
             </select>
         </div>
         <div class="form-group col-md-5">
             <select id="filtertranslationform-languageid" class="form-control" name="languageId">
-                <? foreach ($allLanguages as $language):?>
+                <?php foreach ($allLanguages as $language):?>
                     <option <?= $selectedLanguage == $language->id ? 'selected' : '' ?> value="<?= $language->id ?>">
                         <?= $language->name ?>
                     </option>
-                <? endforeach;?>
+                <?php endforeach;?>
             </select>
         </div>
         <div class="col-md-2">
             <input type="submit" class="btn btn-primary pull-left" value="Отфильтровать">
         </div>
-        <? ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
     </div>
 
     <!-- Translation -->
@@ -58,28 +58,28 @@ $dataGet = Yii::$app->request->get();
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <? if(!empty($sourceMessages)): ?>
+                    <?php if(!empty($sourceMessages)): ?>
                         <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th><?= Translation::t('main', 'Category') ?></th>
                                 <th><?= Translation::t('main', 'source') ?></th>
-                                <? if(!empty($sourceMessages[0]->messages)): ?>
+                                <?php if(!empty($sourceMessages[0]->messages)): ?>
                                     <th><?= Translation::t('main', 'Translation') ?></th>
                                     <th><?= Translation::t('main', 'Language') ?></th>
-                                <? endif; ?>
+                                <?php endif; ?>
                             </tr>
                             </thead>
                             <tbody>
-                            <? foreach($sourceMessages as $sourceMessage): ?>
+                            <?php foreach($sourceMessages as $sourceMessage): ?>
                                 <tr>
                                     <td><?= $sourceMessage->category ?></td>
                                     <td><?= $sourceMessage->message ?></td>
-                                    <? if(!empty($sourceMessage->messages)): ?>
+                                    <?php if(!empty($sourceMessage->messages)): ?>
                                         <td><?=$sourceMessage->messages[0]->translation?></td>
-                                    <? else: ?>
+                                    <?php else: ?>
                                         <td></td>
-                                    <? endif; ?>
+                                    <?php endif; ?>
                                     <td class="text-right">
                                         <a href="<?= Url::toRoute([
                                             'message/edit',
@@ -96,10 +96,10 @@ $dataGet = Yii::$app->request->get();
                                     </td>
 
                                 </tr>
-                            <? endforeach; ?>
+                            <?php endforeach; ?>
                             </tbody>
                         </table>
-                    <? endif; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="ibox-footer">
@@ -119,7 +119,7 @@ $dataGet = Yii::$app->request->get();
 <div class="modal fade" id="addTranslationFormModel" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <? $addForm = ActiveForm::begin(['action' => Url::toRoute(['message/add']), 'method'=>'post']) ?>
+            <?php $addForm = ActiveForm::begin(['action' => Url::toRoute(['message/add']), 'method'=>'post']) ?>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -150,7 +150,7 @@ $dataGet = Yii::$app->request->get();
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <input type="submit" class="btn btn-primary pull-right" value="Добавить">
             </div>
-            <? ActiveForm::end(); ?>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>
