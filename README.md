@@ -13,9 +13,11 @@ INSTALLATION
 "black-lamp/blcms-translate": "*"
 ```
 ### Add to main.php
+```php
 'modules' => [
         'translation' => [
             'class' => \bl\cms\translate\Translation::className()
         ],
         ...
     ],
+```
