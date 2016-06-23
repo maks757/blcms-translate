@@ -12,3 +12,10 @@ INSTALLATION
 ```javascript
 "black-lamp/blcms-translate": "*"
 ```
+### Add to main.php
+'modules' => [
+        'translation' => [
+            'class' => \bl\cms\translate\Translation::className()
+        ],
+        ...
+    ],
