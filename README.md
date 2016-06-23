@@ -10,5 +10,5 @@ INSTALLATION
 
 ### Composer require section
 ```javascript
-"black-lamp/blcms-translate": "0.*"
+"black-lamp/blcms-translate": "*"
 ```
