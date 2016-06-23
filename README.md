@@ -6,7 +6,7 @@ INSTALLATION
 
 ### Migrate language table
 
-	yii migrate --migrationPath=@vendor/black-lamp/blcms-translate/migrations
+	yii migrate --migrationPath=@yii/i18n/migrations/
 
 ### Composer require section
 ```javascript
