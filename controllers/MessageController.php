@@ -24,11 +24,11 @@ class MessageController extends Controller
         $language = Language::findOrDefault(Yii::$app->request->get('languageId'));
         $category = SourceMessage::findOne(Yii::$app->request->get('categoryId'));
         $message = SourceMessage::find();
-        if(!empty($language)) {
-            $message->with(['messages' => function($query) use($language) {
-                $query->andWhere(['language' => $language->lang_id]);
-            }]);
-        }
+//        if(!empty($language)) {
+//            $message->with(['messages' => function($query) use($language) {
+//                $query->andWhere(['language' => $language->lang_id]);
+//            }]);
+//        }
         if(!empty($category)) {
             $message->where(['category' => $category->category]);
         }
@@ -42,18 +42,26 @@ class MessageController extends Controller
 
         return $this->render('index', [
             'allLanguages' => Language::find()->all(),
+            'languages' => Language::find()->where(['default' => false])->all(),
             'allCategories' => SourceMessage::find()->select(['id', 'category'])->groupBy(['category'])->all(),
             'sourceMessages' => $messages,
             'pages' => $pages,
             'addModel' => new SourceMessage(),
             'selectedCategory' => $category->id,
-            'selectedLanguage' => $language->id
+            'selectedLanguage' => $language
         ]);
     }
 
     public function actionAdd(){
         $addModel = new SourceMessage();
+        $messageCategory = SourceMessage::find()->where(['id' => Yii::$app->request->post('categoryId')])->one();
         if($addModel->load(Yii::$app->request->post()) && $addModel->validate()){
+            if(!empty($messageCategory))
+                $addModel->category = $messageCategory->category;
+            if(empty($addModel->category)) {
+                Yii::$app->session->setFlash('error', 'Category empty');
+                return $this->redirect(Yii::$app->request->referrer);
+            }
             $addModel->save();
             Yii::$app->session->setFlash('success', 'Data success created.');
         }

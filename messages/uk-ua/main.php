@@ -22,6 +22,14 @@ return [
     'Language' => 'Мова',
     'List translation' => '',
     'Translation' => 'Переклад',
-    'all' => 'уси',
+    'all' => 'всі',
     'source' => 'Исходник',
+    'Add new category' => 'Додати нову категорію',
+    'Select category' => 'Оберіть категорію',
+    'select' => 'оберить',
+    'or write new' => 'або введіть нову',
+    'text' => 'текст',
+    'Filter' => 'Фільтр',
+    'Filter the' => 'Фільтрувати',
+    'Languages' => 'Мови'
 ];

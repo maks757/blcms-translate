@@ -22,8 +22,7 @@ class SourceMessage extends ActiveRecord
     {
         return [
             [['id'], 'integer'],
-            [['category', 'message'], 'string'],
-            [['category', 'message'], 'required']
+            [['category', 'message'], 'string']
         ];
     }
 

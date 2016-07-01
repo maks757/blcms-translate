@@ -24,4 +24,12 @@ return [
     'Translation' => 'Перевод',
     'all' => 'все',
     'source' => 'Исходник',
+    'Add new category' => 'Добавить новую категорию',
+    'Select category' => 'Выберите категорию',
+    'select' => 'выберите',
+    'or write new' => 'или введите новую',
+    'text' => 'текст',
+    'Filter' => 'Фильтр',
+    'Filter the' => 'Фильтровать',
+    'Languages' => 'Языки'
 ];
