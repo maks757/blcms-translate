@@ -1,7 +1,7 @@
 {
   "name": "maks757/translate",
   "description": "Translations module",
-  "keywords": ["cms", "translation"],
+  "keywords": ["translation"],
   "type": "yii2-extension",
   "authors": [
     {
