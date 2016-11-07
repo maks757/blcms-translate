@@ -1,24 +1,20 @@
 {
-  "name": "black-lamp/blcms-translate",
-  "description": "Translations module for Black-Lamp CMS",
-  "keywords": ["black-lamp", "cms", "translation"],
+  "name": "maks757/translate",
+  "description": "Translations module",
+  "keywords": ["cms", "translation"],
   "type": "yii2-extension",
   "authors": [
     {
       "name": "Cherednyk Maxim",
       "email": "maks757q@gmail.com"
     },
-    {
-      "name": "Albert Gainutdinov",
-      "email": "xalbert.einsteinx@gmail.com"
-    }
   ],
   "require": {
     "yiisoft/yii2": ">=2.0.4"
   },
   "autoload": {
     "psr-4": {
-      "bl\\cms\\translate\\": ""
+      "maks757\\translate\\": ""
     }
   }
 }
