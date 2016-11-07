@@ -23,7 +23,7 @@ class Translation extends \yii\base\Module
     public function registerTranslations() {
         \Yii::$app->i18n->translations['translation/*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
-            'sourceLanguage' => 'en-US',
+            'sourceLanguage' => 'en',
             'basePath' => '@vendor/maks757/translate/messages',
             'fileMap' => [
                 'translation/main' => 'main.php',
