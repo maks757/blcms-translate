@@ -6,7 +6,7 @@
  * Time: 23:14
  */
 
-namespace bl\cms\translate\models\entities;
+namespace maks757\translate\models\entities;
 
 use yii\db\ActiveRecord;
 /**

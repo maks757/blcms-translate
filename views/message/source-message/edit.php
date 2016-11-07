@@ -1,8 +1,8 @@
 <?php
-use bl\cms\translate\models\entities\SourceMessage;
-use bl\cms\translate\models\form\EditSourceMessageForm;
-use bl\cms\translate\Translation;
-use bl\multilang\entities\Language;
+use maks757\translate\models\entities\SourceMessage;
+use maks757\translate\models\form\EditSourceMessageForm;
+use maks757\translate\Translation;
+use maks757\multilang\entities\Language;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;

@@ -6,12 +6,12 @@
  * Time: 14:20
  */
 
-namespace bl\cms\translate;
+namespace maks757\translate;
 
 
 class Translation extends \yii\base\Module
 {
-    public $controllerNamespace = 'bl\cms\translate\controllers';
+    public $controllerNamespace = 'maks757\translate\controllers';
     public $defaultRoute = 'message';
 
     public function init()

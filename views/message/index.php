@@ -8,8 +8,8 @@
 /* @var $pages yii\data\Pagination[] */
 /* @var $addTranslationFormModel AddTranslationForm */
 
-use bl\cms\translate\Translation;
-use bl\multilang\widgets\languageList\LanguageListWidget;
+use maks757\translate\Translation;
+use maks757\multilang\widgets\languageList\LanguageListWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;

@@ -1,7 +1,7 @@
 <?php
 
-use bl\cms\translate\models\form\EditMessageForm;
-use bl\cms\translate\Translation;
+use maks757\translate\models\form\EditMessageForm;
+use maks757\translate\Translation;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;

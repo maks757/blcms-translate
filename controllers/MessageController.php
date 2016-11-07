@@ -6,11 +6,11 @@
  * Time: 19:00
  */
 
-namespace bl\cms\translate\controllers;
+namespace maks757\translate\controllers;
 
-use bl\cms\translate\models\entities\Message;
-use bl\cms\translate\models\entities\SourceMessage;
-use bl\multilang\entities\Language;
+use maks757\translate\models\entities\Message;
+use maks757\translate\models\entities\SourceMessage;
+use maks757\multilang\entities\Language;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\Html;
