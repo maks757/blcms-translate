@@ -24,7 +24,7 @@ class Translation extends \yii\base\Module
         \Yii::$app->i18n->translations['translation/*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en-US',
-            'basePath' => '@vendor/black-lamp/blcms-translate/messages',
+            'basePath' => '@vendor/maks757/translate/messages',
             'fileMap' => [
                 'translation/main' => 'main.php',
                 'translation/message' => 'message.php',
