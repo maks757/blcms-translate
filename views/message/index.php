@@ -21,11 +21,11 @@ $dataGet = Yii::$app->request->get();
 ?>
 <div class="row">
     <div class="col-md-6">
-        <div class="ibox">
-            <div class="ibox-title">
+        <div class="panel">
+            <div class="panel-title">
                 <h3><?= Translation::t('main', 'Add new category') ?></h3>
             </div>
-            <div class="ibox-content">
+            <div class="panel-body">
                 <?php $addForm = ActiveForm::begin(['action' => Url::toRoute(['message/add']), 'method'=>'post']) ?>
                 <div class="row">
                     <div class="col-md-6">
@@ -72,11 +72,11 @@ $dataGet = Yii::$app->request->get();
     </div>
     <!--Filter Translation-->
     <div class="col-md-6">
-        <div class="ibox">
-            <div class="ibox-title">
+        <div class="panel">
+            <div class="panel-title">
                 <h3><?= Translation::t('main', 'Filter') ?></h3>
             </div>
-            <div class="ibox-content">
+            <div class="panel-body">
                 <?php ActiveForm::begin([ 'action' => Url::to(['index']), 'method' => 'get'])?>
                 <div class="form-group">
                     <label><?= Translation::t('main', 'Category') ?></label>
@@ -110,14 +110,14 @@ $dataGet = Yii::$app->request->get();
 <div class="row">
     <!-- Translation -->
     <div class="col-md-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
+        <div class="panel float-e-margins">
+            <div class="panel-title">
                 <h5>
                     <i class="fa fa-file-text"></i>
                     <?= Translation::t('main', 'List translation') ?>
                 </h5>
             </div>
-            <div class="ibox-content">
+            <div class="panel-body">
                 <div class="table-responsive">
                     <?php if(!empty($sourceMessages)): ?>
                         <table class="table table-hover">
@@ -158,9 +158,9 @@ $dataGet = Yii::$app->request->get();
                                                 ]),
                                                 [
                                                     'class' => (!empty($translations[$language->lang_id]) ?
-                                                        'label label-primary' :
-                                                        'label label-danger'
-                                                    ) . ' col-sm-12',
+                                                            'label label-primary' :
+                                                            'label label-danger'
+                                                        ) . ' col-sm-12',
                                                     'title' => (!empty($translations[$language->lang_id]) ?
                                                         Translation::t('main', 'Change translation') :
                                                         Translation::t('main', 'Add translation')
@@ -193,7 +193,7 @@ $dataGet = Yii::$app->request->get();
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="ibox-footer">
+            <div class="panel-footer">
                 <div class="text-center">
                     <?= LinkPager::widget(['pagination' => $pages]) ?>
                 </div>
